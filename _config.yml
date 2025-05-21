@@ -26,6 +26,8 @@ navigation:
       url: /about
     - title: Contact
       url: /contact
+    - title: Portfolio
+      url: /portfolio
 
 social:
     github: vi31
