@@ -1,0 +1,2 @@
+{%- comment -%}Usage: style="{% include doodle-style.html name='home' %}"  (names: home, projects, teardowns, blog, about){%- endcomment -%}
+--d-dark:url({{ '/assets/img/doodles/doodle-' | append: include.name | append: '-dark.svg' | relative_url }});--d-light:url({{ '/assets/img/doodles/doodle-' | append: include.name | append: '-light.svg' | relative_url }})

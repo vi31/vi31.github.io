@@ -1,69 +1,56 @@
 title: Vibha Govind Hegde
+description: "[Site description: one sentence for search results and link previews.]"
+url: "https://vi31.github.io"
+baseurl: ""
+lang: en
 
-url: https://vi31.github.io
-baseurl: # /agency-jekyll-theme/
+author:
+  name: Vibha Govind Hegde
 
-# Site settings
-# title: Awesome Title
-email: vibhah31@gmail.com
-description: "Portfolio Website"
+# Footer and About links. "#" = not supplied yet; replace with the real URL.
+profiles:
+  github: "https://github.com/vi31"
+  linkedin: "#"
+  email: "#"          # use a full mailto: address, e.g. "mailto:you@example.com"
 
+# Contact form (About page). Create a form at formspree.io and paste its URL here.
+form_endpoint: "https://formspree.io/f/[FORM_ID]"
 
-# Team names, titles and social links
-people:
-- name: Kay Garland
-  pic: 1
-  position: Lead Designer
-  social:
-    - title: twitter
-      url: #
-    - title: facebook
-      url: #
-    - title: stack-overflow
-      url: #
+# No pre-made theme. The github-pages gem would otherwise apply "primer" by default.
+theme: null
 
-- name: Larry Parker
-  pic: 2
-  position: Lead Marketer
-  social:
-    - title: twitter
-      url: #
-    - title: facebook
-      url: #
-    - title: linkedin
-      url: #
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
 
-- name: Diana Petersen
-  pic: 3
-  position: Lead Developer
-  social:
-    - title: twitter
-      url: #
-    - title: facebook
-      url: #
-    - title: google-plus
-      url: #
+permalink: /blog/:year/:month/:day/:title/
 
-# Social networks usernames (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
-social:
-  # - title: twitter
-  #   url: http://twitter.com/jekyllrb
-  # - title: facebook
-  #   url:
-  # - title: stack-overflow
-  #   url: http://stackoverflow.com/questions/tagged/jekyll
-  # - title: bitbucket 
-  #   url: http://bitbucket.org/jekyll
-  - title: github
-    url: http://github.com/vi31
-  - title: linkedin
-    url: http://linkedin.com/in/vihegde31
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
+  teardowns:
+    output: true
+    permalink: /teardowns/:name/
 
-# Postal address (add as many lines as necessary)
-# address:
-#   - line: 3481 Melrose Place
-#   - line: Beverly Hills, CA 90210
+defaults:
+  # `image` is the default social-share picture (1200x630). Any page can set its own `image:`.
+  - scope: { path: "" }
+    values: { layout: default, image: /assets/img/og-image.png }
+  - scope: { path: "", type: projects }
+    values: { section: projects, layout: project }
+  - scope: { path: "", type: teardowns }
+    values: { section: teardowns, layout: teardown }
+  - scope: { path: "", type: posts }
+    values: { section: blog, layout: post }
 
-# Build settings
-markdown: kramdown
-permalink: pretty
+exclude:
+  - portfolio-handoff
+  - .claude
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - README.md
+  - LICENSE
+  - tools
+  - node_modules

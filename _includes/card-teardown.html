@@ -1,0 +1,26 @@
+{%- comment -%}
+  Usage: {% include card-teardown.html teardown=t variant="featured" %}   (blank variant = list card)
+{%- endcomment -%}
+{%- assign t = include.teardown -%}
+{%- if include.variant == 'featured' -%}
+<a class="feature-card" href="{{ t.url | relative_url }}">
+  <div class="feature-cover"{% unless t.cover %} role="img" aria-label="Teardown cover placeholder"{% endunless %}>
+    {%- if t.cover %}<img src="{{ t.cover | relative_url }}" alt="">{% else %}[Product screenshot]{% endif -%}
+  </div>
+  <div class="feature-body">
+    <span class="chip chip-lime">Featured</span>
+    <span class="feature-title">{{ t.title }}</span>
+    <span class="feature-text">{{ t.summary }}</span>
+    <div class="chips"><span class="chip chip-purple-tint">{{ t.product_category }}</span><span class="chip">{{ t.read_time }} min read</span></div>
+  </div>
+</a>
+{%- else -%}
+<a class="card card--teardown" href="{{ t.url | relative_url }}">
+  <div class="card-cover"{% unless t.cover %} role="img" aria-label="Teardown cover placeholder"{% endunless %}>
+    {%- if t.cover %}<img src="{{ t.cover | relative_url }}" alt="">{% else %}[Screenshot]{% endif -%}
+  </div>
+  <span class="card-meta">{{ t.date | date: "%b %-d, %Y" }} · <span class="topic">{{ t.product_category }}</span></span>
+  <span class="card-title">{{ t.title }}</span>
+  <span class="card-text">{{ t.summary }}</span>
+</a>
+{%- endif -%}

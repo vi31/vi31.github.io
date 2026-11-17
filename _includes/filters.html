@@ -1,0 +1,15 @@
+{%- comment -%}
+  Usage: {% include filters.html source="projects" %}  or source="posts"
+  Hidden until site.js runs, so visitors without JavaScript never see dead buttons.
+{%- endcomment -%}
+{%- if include.source == 'projects' -%}
+  {%- assign values = site.projects | map: "category" | uniq | sort -%}
+{%- else -%}
+  {%- assign values = site.posts | map: "topic" | uniq | sort -%}
+{%- endif -%}
+<div class="filters" role="group" aria-label="Filter by {% if include.source == 'projects' %}category{% else %}topic{% endif %}" data-filters hidden>
+  <button class="filter" type="button" data-filter="all" aria-pressed="true">All</button>
+  {%- for v in values %}
+  <button class="filter" type="button" data-filter="{{ v | slugify }}" aria-pressed="false">{{ v }}</button>
+  {%- endfor %}
+</div>

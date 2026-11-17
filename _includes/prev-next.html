@@ -1,0 +1,30 @@
+{%- comment -%}
+  Previous / Next cards. Previous = the next-older entry, Next = the next-newer one.
+  Usage: {% include prev-next.html collection="projects" sort="year" noun="project" %}
+  The sort matches the listing page, so the order here is the order visitors see there.
+{%- endcomment -%}
+{%- assign pn_items = site[include.collection] | sort: include.sort | reverse -%}
+{%- assign pn_idx = -1 -%}
+{%- for item in pn_items -%}
+  {%- if item.url == page.url -%}{%- assign pn_idx = forloop.index0 -%}{%- endif -%}
+{%- endfor -%}
+{%- assign pn_older = false -%}
+{%- assign pn_newer = false -%}
+{%- if pn_idx >= 0 -%}
+  {%- assign pn_older_i = pn_idx | plus: 1 -%}
+  {%- if pn_older_i < pn_items.size -%}{%- assign pn_older = pn_items[pn_older_i] -%}{%- endif -%}
+  {%- if pn_idx > 0 -%}
+    {%- assign pn_newer_i = pn_idx | minus: 1 -%}
+    {%- assign pn_newer = pn_items[pn_newer_i] -%}
+  {%- endif -%}
+{%- endif -%}
+{%- if pn_older or pn_newer %}
+<nav class="prevnext" aria-label="More {{ include.noun }}s">
+  {%- if pn_older %}
+  <a class="card card--nav" href="{{ pn_older.url | relative_url }}"><span class="k">← Previous {{ include.noun }}</span><span class="card-title">{{ pn_older.title }}</span></a>
+  {%- endif %}
+  {%- if pn_newer %}
+  <a class="card card--nav card--next" href="{{ pn_newer.url | relative_url }}"><span class="k">Next {{ include.noun }} →</span><span class="card-title">{{ pn_newer.title }}</span></a>
+  {%- endif %}
+</nav>
+{%- endif -%}

@@ -1,0 +1,20 @@
+---
+layout: page-banner
+title: Blog
+permalink: /blog/
+section: blog
+doodle: blog
+heading: Blog
+stop: purple
+intro: "[What you write about, in one sentence.]"
+filter: posts
+---
+<section class="wrap post-list" aria-label="All posts" data-filter-list>
+  {%- for p in site.posts %}
+    {%- if forloop.first %}
+  {% include card-post.html post=p variant="latest" %}
+    {%- else %}
+  {% include card-post.html post=p %}
+    {%- endif %}
+  {%- endfor %}
+</section>

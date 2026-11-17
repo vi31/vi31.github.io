@@ -1,0 +1,18 @@
+{%- comment -%}
+  Usage: {% include card-post.html post=p variant="latest" %}   (blank variant = list card)
+  Read time is calculated from the post's word count (200 words per minute).
+{%- endcomment -%}
+{%- assign p = include.post -%}
+{%- assign read_min = p.content | strip_html | number_of_words | divided_by: 200 | plus: 1 -%}
+<a class="card card--post{% if include.variant == 'latest' %} card--latest{% endif %}" href="{{ p.url | relative_url }}" data-category="{{ p.topic | slugify }}">
+  {%- if include.variant == 'latest' %}
+  <span class="chip chip-lime">Latest</span>
+  <span class="card-title">{{ p.title }}</span>
+  <span class="card-text">{{ p.subtitle }}</span>
+  <span class="card-meta">{{ p.date | date: "%b %-d, %Y" }} · {{ p.topic }} · {{ read_min }} min read</span>
+  {%- else %}
+  <span class="card-meta">{{ p.date | date: "%b %-d, %Y" }} · <span class="topic">{{ p.topic }}</span></span>
+  <span class="card-title">{{ p.title }}</span>
+  <span class="card-text">{{ p.subtitle }}</span>
+  {%- endif %}
+</a>

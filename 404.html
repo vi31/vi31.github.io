@@ -1,0 +1,17 @@
+---
+layout: default
+title: Page not found
+permalink: /404.html
+noindex: true
+---
+<div class="doodle error-banner" style="{% include doodle-style.html name='home' %}">
+  <section class="wrap error-hero" aria-label="Page not found">
+    <span class="error-code" aria-hidden="true">404</span>
+    <h1>Page not found<span class="stop-lime">.</span></h1>
+    <p>The link may be old, or the page may have moved.</p>
+    <div class="btn-row">
+      <a class="btn btn-lime" href="{{ '/' | relative_url }}">Back to home</a>
+      <a class="btn btn-outline" href="{{ '/projects/' | relative_url }}">See projects</a>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,30 @@
+---
+layout: default
+---
+{%- comment -%}
+  Single blog post. Front matter: title, date, topic, subtitle.
+  Read time is calculated from the word count (200 words a minute).
+{%- endcomment -%}
+{%- assign read_min = content | strip_html | number_of_words | divided_by: 200 | plus: 1 -%}
+<div class="doodle detail-banner" style="{% include doodle-style.html name='blog' %}">
+  <section class="wrap detail-head detail-head--post" aria-label="Post summary">
+    <a class="back-link" href="{{ '/blog/' | relative_url }}">← All posts</a>
+    <span class="detail-meta">{{ page.date | date: "%b %-d, %Y" }} · <span class="topic">{{ page.topic }}</span> · {{ read_min }} min read</span>
+    <h1>{{ page.title }}<span class="stop-purple">.</span></h1>
+    <p class="detail-summary">{{ page.subtitle }}</p>
+  </section>
+</div>
+
+<div class="wrap detail-wrap">
+  <article class="prose prose--post">
+    {{ content }}
+    {%- if page.topic %}
+    <div class="post-topics"><a class="topic-link" href="{{ '/blog/' | relative_url }}#{{ page.topic | slugify }}">{{ page.topic }}</a></div>
+    {%- endif %}
+  </article>
+</div>
+
+<section class="wrap detail-foot" aria-label="More posts">
+  {% include prev-next.html collection="posts" sort="date" noun="post" %}
+  <a class="back-link" href="{{ '/blog/' | relative_url }}">← All posts</a>
+</section>

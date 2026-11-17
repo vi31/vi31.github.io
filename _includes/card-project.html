@@ -1,0 +1,28 @@
+{%- comment -%}
+  Usage: {% include card-project.html project=p accent="lime" variant="wide" %}
+  accent: lime | purple.  variant: (blank = list card) | wide | compact.
+{%- endcomment -%}
+{%- assign p = include.project -%}
+{%- assign accent = include.accent | default: "lime" -%}
+<a class="card card--{{ accent }}{% if include.variant == 'wide' %} card--wide span-2{% elsif include.variant == 'compact' %} card--compact{% endif %}" href="{{ p.url | relative_url }}" data-category="{{ p.category | slugify }}">
+  <div class="card-cover"{% unless p.cover %} role="img" aria-label="Project cover placeholder"{% endunless %}>
+    {%- if p.cover %}<img src="{{ p.cover | relative_url }}" alt="">{% else %}[Cover image]{% endif -%}
+  </div>
+  {%- if include.variant == 'wide' %}
+  <div class="card-row">
+    <span class="card-title">{{ p.title }}</span>
+    <span class="chips"><span class="chip chip-purple">{{ p.category }}</span><span class="chip">{{ p.year }}</span></span>
+  </div>
+  <span class="card-text">{{ p.summary }}</span>
+  {%- elsif include.variant == 'compact' %}
+  <span class="card-title">{{ p.title }}</span>
+  <span class="card-text">{{ p.summary }}</span>
+  {%- else %}
+  <div class="chips"><span class="chip chip-tint">{{ p.category }}</span><span class="chip">{{ p.year }}</span></div>
+  <span class="card-title">{{ p.title }}</span>
+  <span class="card-text">{{ p.summary }}</span>
+  {%- if p.role or p.tools %}
+  <span class="card-meta">{{ p.role }}{% if p.role and p.tools %} · {% endif %}{{ p.tools | join: ", " }}</span>
+  {%- endif %}
+  {%- endif %}
+</a>

@@ -1,20 +1,64 @@
 ---
 layout: default
+section: home
+hero_status: "[Available for / Currently at]"
+hero_name: "[Your name],"
+hero_role: "[what you do]"
+hero_intro: "[Two sentences: the kind of problems you work on, and what you are looking for next.]"
+now: "[One line on what you are building or studying right now.]"
 ---
+{%- assign featured = site.projects | where: "featured", true -%}
+{%- assign latest_teardown = site.teardowns | sort: "date" | reverse | first -%}
+{%- assign latest_post = site.posts | first -%}
 
-<div class="home">
-
-  <h1>Posts</h1>
-
-  <ul class="posts">
-    {% for post in site.posts %}
-      <li>
-        <span class="post-date">{{ post.date | date: "%b %-d, %Y" }}</span>
-        <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-      </li>
-    {% endfor %}
-  </ul>
-
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
-
+<div class="doodle hero" style="{% include doodle-style.html name='home' %}">
+  <section class="wrap hero-inner" aria-label="Introduction">
+    <div class="hero-copy">
+      <span class="status"><span class="status-dot" aria-hidden="true"></span>{{ page.hero_status }}</span>
+      <h1>{{ page.hero_name }}<br><span class="accent-purple">{{ page.hero_role }}</span><span class="stop-lime">.</span></h1>
+      <p class="hero-intro">{{ page.hero_intro }}</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="{{ '/projects/' | relative_url }}">View work</a>
+        <a class="btn btn-outline" href="{{ '/about/#contact' | relative_url }}">Contact</a>
+      </div>
+    </div>
+    <div class="now-tile">
+      <span class="label">Now</span>
+      <span class="text">{{ page.now }}</span>
+    </div>
+  </section>
 </div>
+
+{% if featured.size > 0 %}
+<section class="wrap home-work" aria-labelledby="work-heading">
+  <div class="section-head">
+    <h2 id="work-heading">Selected work</h2>
+    <a href="{{ '/projects/' | relative_url }}">All projects →</a>
+  </div>
+  <div class="grid">
+    {% assign first_project = featured[0] %}
+    {% include card-project.html project=first_project accent="purple" variant="wide" %}
+    {% if featured.size > 1 %}
+    {% assign second_project = featured[1] %}
+    {% include card-project.html project=second_project accent="lime" variant="compact" %}
+    {% endif %}
+  </div>
+</section>
+{% endif %}
+
+<section class="wrap grid home-latest" aria-label="Latest writing">
+  {% if latest_teardown %}
+  <a class="tile tile--purple" href="{{ latest_teardown.url | relative_url }}">
+    <span class="tile-label">Latest teardown</span>
+    <span class="tile-title">{{ latest_teardown.title }}</span>
+    <span class="tile-text">{{ latest_teardown.summary }}</span>
+  </a>
+  {% endif %}
+  {% if latest_post %}
+  <a class="tile tile--lime" href="{{ latest_post.url | relative_url }}">
+    <span class="tile-label">Latest post</span>
+    <span class="tile-title">{{ latest_post.title }}</span>
+    <span class="tile-text">{{ latest_post.subtitle }} · {{ latest_post.date | date: "%b %-d, %Y" }}</span>
+  </a>
+  {% endif %}
+</section>

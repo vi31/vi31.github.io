@@ -1,0 +1,34 @@
+---
+layout: page-banner
+title: Teardowns
+permalink: /teardowns/
+section: teardowns
+doodle: teardowns
+heading: Teardowns
+stop: lime
+intro: "[What a teardown is on this site, in one sentence.]"
+---
+{%- assign all = site.teardowns | sort: "date" | reverse -%}
+{%- assign marked = all | where: "featured", true -%}
+{%- if marked.size > 0 -%}
+  {%- assign featured = marked | first -%}
+{%- else -%}
+  {%- assign featured = all | first -%}
+{%- endif -%}
+{%- assign rest = all | where_exp: "t", "t.url != featured.url" -%}
+
+{% if featured %}
+<section class="wrap feature-section" aria-label="Featured teardown">
+  {% include card-teardown.html teardown=featured variant="featured" %}
+</section>
+{% endif %}
+
+{% if rest.size > 0 %}
+<section class="wrap list-section list-section--after-feature" aria-label="More teardowns">
+  <div class="grid">
+    {%- for t in rest %}
+    {% include card-teardown.html teardown=t %}
+    {%- endfor %}
+  </div>
+</section>
+{% endif %}

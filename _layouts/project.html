@@ -1,0 +1,48 @@
+---
+layout: default
+---
+{%- comment -%}
+  Single project. Front matter: title, year, category, summary, cover, links{demo, code},
+  role, timeline, team, tools[]. The Markdown body is free-form: the sections
+  (Problem, Approach, Outcome ...) are headings the author writes and can rename or drop.
+{%- endcomment -%}
+<div class="doodle detail-banner" style="{% include doodle-style.html name='projects' %}">
+  <section class="wrap detail-head" aria-label="Project summary">
+    <a class="back-link" href="{{ '/projects/' | relative_url }}">← All projects</a>
+    <div class="chips"><span class="chip chip-purple">{{ page.category }}</span><span class="chip">{{ page.year }}</span></div>
+    <h1>{{ page.title }}<span class="stop-purple">.</span></h1>
+    <p class="detail-summary">{{ page.summary }}</p>
+    {%- if page.links.demo or page.links.code %}
+    <div class="btn-row">
+      {%- if page.links.demo %}<a class="btn btn-primary" href="{{ page.links.demo }}">Live demo</a>{% endif %}
+      {%- if page.links.code %}<a class="btn btn-outline" href="{{ page.links.code }}">Code</a>{% endif %}
+    </div>
+    {%- endif %}
+  </section>
+</div>
+
+<div class="wrap detail-wrap detail-cols">
+  <article class="detail-main">
+    <div class="cover-img"{% unless page.cover %} role="img" aria-label="Project cover placeholder"{% endunless %}>
+      {%- if page.cover %}<img src="{{ page.cover | relative_url }}" alt="">{% else %}[Cover image]{% endif -%}
+    </div>
+    <div class="prose">
+      {{ content }}
+    </div>
+  </article>
+  <aside class="detail-side" aria-label="Project facts">
+    {%- if page.role %}<div class="fact"><span class="k">Role</span><span class="v">{{ page.role }}</span></div>{% endif %}
+    {%- if page.timeline %}<div class="fact"><span class="k">Timeline</span><span class="v">{{ page.timeline }}</span></div>{% endif %}
+    {%- if page.team %}<div class="fact"><span class="k">Team</span><span class="v">{{ page.team }}</span></div>{% endif %}
+    {%- if page.tools %}
+    <div class="fact"><span class="k">Tools</span>
+      <span class="chips">{% for tool in page.tools %}<span class="chip">{{ tool }}</span>{% endfor %}</span>
+    </div>
+    {%- endif %}
+  </aside>
+</div>
+
+<section class="wrap detail-foot" aria-label="More projects">
+  {% include prev-next.html collection="projects" sort="year" noun="project" %}
+  <a class="back-link" href="{{ '/projects/' | relative_url }}">← All projects</a>
+</section>

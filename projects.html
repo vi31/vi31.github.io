@@ -1,0 +1,25 @@
+---
+layout: page-banner
+title: Projects
+permalink: /projects/
+section: projects
+doodle: projects
+heading: Projects
+stop: purple
+intro: "[One sentence on what these have in common.]"
+filter: projects
+---
+<section class="wrap list-section" aria-label="All projects">
+  <div class="grid grid--2" data-filter-list>
+    {%- assign projects = site.projects | sort: "year" | reverse -%}
+    {%- for p in projects %}
+      {%- if p.accent -%}
+        {%- assign acc = p.accent -%}
+      {%- else -%}
+        {%- assign odd = forloop.index | modulo: 2 -%}
+        {%- if odd == 1 -%}{%- assign acc = "lime" -%}{%- else -%}{%- assign acc = "purple" -%}{%- endif -%}
+      {%- endif %}
+    {% include card-project.html project=p accent=acc %}
+    {%- endfor %}
+  </div>
+</section>

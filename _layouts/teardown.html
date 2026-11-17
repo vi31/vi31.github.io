@@ -1,0 +1,78 @@
+---
+layout: default
+---
+{%- comment -%}
+  Single teardown. Front matter: title ("Product: angle"), date, product_category, summary,
+  cover, read_time, verdict, works[], does_not[], changes[{title, text}], takeaway.
+  The Markdown body holds "The user problem", "What they built" and any annotated screenshots.
+  Blocks whose front matter is missing are skipped.
+{%- endcomment -%}
+<div class="doodle detail-banner" style="{% include doodle-style.html name='teardowns' %}">
+  <section class="wrap detail-head" aria-label="Teardown summary">
+    <a class="back-link" href="{{ '/teardowns/' | relative_url }}">← All teardowns</a>
+    <div class="chips">
+      <span class="chip chip-purple-tint">{{ page.product_category }}</span>
+      <span class="chip">{{ page.read_time }} min read</span>
+      <span class="chip">{{ page.date | date: "%b %-d, %Y" }}</span>
+    </div>
+    <h1>{{ page.title }}<span class="stop-lime">.</span></h1>
+    <p class="detail-summary">{{ page.summary }}</p>
+  </section>
+</div>
+
+<div class="wrap detail-wrap stack">
+  {%- if page.verdict %}
+  <div class="verdict w-760">
+    <span class="k">Verdict</span>
+    <span class="v">{{ page.verdict }}</span>
+  </div>
+  {%- endif %}
+
+  <div class="cover-img w-960"{% unless page.cover %} role="img" aria-label="Product screenshot placeholder"{% endunless %}>
+    {%- if page.cover %}<img src="{{ page.cover | relative_url }}" alt="">{% else %}[Product screenshot]{% endif -%}
+  </div>
+
+  <div class="prose w-760">
+    {{ content }}
+  </div>
+
+  {%- if page.works or page.does_not %}
+  <div class="panel-grid w-960">
+    {%- if page.works %}
+    <div class="panel panel--works">
+      <h2>What works</h2>
+      <ul>{% for w in page.works %}<li><span class="mark" aria-hidden="true">+</span><span>{{ w }}</span></li>{% endfor %}</ul>
+    </div>
+    {%- endif %}
+    {%- if page.does_not %}
+    <div class="panel panel--not">
+      <h2>What does not</h2>
+      <ul>{% for d in page.does_not %}<li><span class="mark" aria-hidden="true">–</span><span>{{ d }}</span></li>{% endfor %}</ul>
+    </div>
+    {%- endif %}
+  </div>
+  {%- endif %}
+
+  {%- if page.changes %}
+  <section class="changes w-960" aria-labelledby="changes-heading">
+    <h2 id="changes-heading">What I would change</h2>
+    <ol class="changes-grid">
+      {%- for c in page.changes %}
+      <li><span class="num" aria-hidden="true">{{ forloop.index }}</span><span class="what">{{ c.title }}</span><span class="why">{{ c.text }}</span></li>
+      {%- endfor %}
+    </ol>
+  </section>
+  {%- endif %}
+
+  {%- if page.takeaway %}
+  <section class="takeaway w-760" aria-labelledby="takeaway-heading">
+    <h2 id="takeaway-heading">Takeaway</h2>
+    <p>{{ page.takeaway }}</p>
+  </section>
+  {%- endif %}
+</div>
+
+<section class="wrap detail-foot" aria-label="More teardowns">
+  {% include prev-next.html collection="teardowns" sort="date" noun="teardown" %}
+  <a class="back-link" href="{{ '/teardowns/' | relative_url }}">← All teardowns</a>
+</section>

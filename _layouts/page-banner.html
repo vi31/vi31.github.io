@@ -1,0 +1,21 @@
+---
+layout: default
+---
+{%- comment -%}
+  Listing-page shell. Front matter:
+    heading, intro, doodle (home|projects|teardowns|blog|about),
+    stop (lime|purple: colour of the full stop after the heading),
+    filter (projects|posts, optional)
+{%- endcomment -%}
+<div class="doodle page-banner" style="{% include doodle-style.html name=page.doodle %}">
+  <section class="wrap banner-inner" aria-label="{{ page.heading }}">
+    <div class="banner-copy">
+      <h1>{{ page.heading }}<span class="stop-{{ page.stop | default: 'purple' }}">.</span></h1>
+      <p class="banner-intro">{{ page.intro }}</p>
+    </div>
+    {%- if page.filter %}
+    {% include filters.html source=page.filter %}
+    {%- endif %}
+  </section>
+</div>
+{{ content }}

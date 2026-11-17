@@ -1,0 +1,85 @@
+---
+layout: default
+title: About
+permalink: /about/
+section: about
+about_lead: "[Paragraph one: who you are and what you do now.]"
+about_two: "[Paragraph two: background, where you studied and worked, what shaped how you work.]"
+about_three: "[Paragraph three: what you are looking for and what you do outside work.]"
+cv: "#"                       # path or URL of your CV PDF, e.g. /assets/Vibha-Hegde-CV.pdf
+portrait:                     # e.g. /assets/img/portrait.jpg  (leave blank for the placeholder)
+portrait_alt: "[Portrait: describe the photo]"
+based_in: "[City]"
+currently: "[Role / program]"
+focus: "[Areas]"
+open_to: "[Roles / collaborations]"
+contact_blurb: "[What you are open to.]"
+---
+<div class="doodle about-banner" style="{% include doodle-style.html name='about' %}">
+  <section class="wrap about-top" aria-label="About">
+    <div class="about-copy">
+      <h1>About<span class="stop-lime">.</span></h1>
+      <p class="about-lead">{{ page.about_lead }}</p>
+      <p>{{ page.about_two }}</p>
+      <p>{{ page.about_three }}</p>
+      <div class="btn-row btn-row--tight">
+        <a class="btn btn-outline btn-small" href="{{ page.cv | relative_url }}">Download CV</a>
+        <a class="btn btn-outline btn-small" href="{{ site.profiles.github }}">GitHub</a>
+        <a class="btn btn-outline btn-small" href="{{ site.profiles.linkedin }}">LinkedIn</a>
+      </div>
+    </div>
+    <div class="facts">
+      <div class="portrait"{% unless page.portrait %} role="img" aria-label="Portrait placeholder"{% endunless %}>
+        {%- if page.portrait %}<img src="{{ page.portrait | relative_url }}" alt="{{ page.portrait_alt }}">{% else %}[Portrait]{% endif -%}
+      </div>
+      <div class="fact"><span class="k">Based in</span><span class="v">{{ page.based_in }}</span></div>
+      <div class="fact fact--purple"><span class="k">Currently</span><span class="v">{{ page.currently }}</span></div>
+      <div class="fact"><span class="k">Focus</span><span class="v">{{ page.focus }}</span></div>
+      <div class="fact fact--lime"><span class="k">Open to</span><span class="v">{{ page.open_to }}</span></div>
+    </div>
+  </section>
+</div>
+
+<section class="wrap timeline-section" aria-labelledby="experience-heading">
+  <h2 id="experience-heading">Experience</h2>
+  <ul class="timeline">
+    {%- for item in site.data.timeline %}
+    <li>
+      <span class="when">{{ item.years }}</span>
+      <span class="what">{{ item.title }}</span>
+      <span class="where">{{ item.org }}</span>
+    </li>
+    {%- endfor %}
+  </ul>
+</section>
+
+<section class="wrap contact-section" id="contact" aria-labelledby="contact-heading">
+  <div class="contact-panel">
+    <div class="contact-copy">
+      <h2 id="contact-heading">Let’s talk<span class="stop-lime">.</span></h2>
+      <p>{{ page.contact_blurb }}{% unless site.profiles.email == '#' %} Or email directly: <a href="{{ site.profiles.email }}">{{ site.profiles.email | remove: 'mailto:' }}</a>.{% endunless %}</p>
+    </div>
+    <form class="form" action="{{ site.form_endpoint }}" method="post" data-contact-form>
+      <div class="field-row">
+        <div class="field">
+          <label for="name">Name</label>
+          <input class="input" id="name" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input class="input" id="email" name="email" type="email" autocomplete="email" required>
+        </div>
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea class="input" id="message" name="message" rows="5" required></textarea>
+      </div>
+      <input class="visually-hidden" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="form-actions">
+        <button class="btn-submit" type="submit">Send message</button>
+        <span class="form-note">Sent via Formspree.</span>
+      </div>
+      <p class="form-status" role="status" aria-live="polite" data-form-status></p>
+    </form>
+  </div>
+</section>
