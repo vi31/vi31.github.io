@@ -822,6 +822,9 @@ textarea.input { resize: vertical; }
   letter-spacing: -.03em;
 }
 .detail-head--post h1 { max-width: 760px; }
+/* post pages: one centred 720px reading column (800px less 40px gutters), like Medium */
+.wrap--post { max-width: 800px; }
+.wrap--post .prose--post { margin-inline: auto; }
 .detail-summary {
   margin: 0;
   max-width: 640px;

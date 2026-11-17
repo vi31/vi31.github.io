@@ -13,7 +13,7 @@ layout: default
 {%- assign title_has_punct = false -%}
 {%- if title_end == '?' or title_end == '!' or title_end == '.' or title_end == ':' -%}{%- assign title_has_punct = true -%}{%- endif -%}
 <div class="doodle detail-banner" style="{% include doodle-style.html name='blog' %}">
-  <section class="wrap detail-head detail-head--post" aria-label="Post summary">
+  <section class="wrap wrap--post detail-head detail-head--post" aria-label="Post summary">
     <a class="back-link" href="{{ '/blog/' | relative_url }}">← All posts</a>
     <span class="detail-meta">{{ page.date | date: "%b %-d, %Y" }}{% if page.topic %} · <span class="topic">{{ page.topic }}</span>{% endif %} · {{ read_min }} min read</span>
     <h1>{{ page.title }}{% unless title_has_punct %}<span class="stop-purple">.</span>{% endunless %}</h1>
@@ -26,7 +26,7 @@ layout: default
   </section>
 </div>
 
-<div class="wrap detail-wrap">
+<div class="wrap wrap--post detail-wrap">
   <article class="prose prose--post">
     {{ content }}
     {%- if page.topic %}
@@ -35,7 +35,7 @@ layout: default
   </article>
 </div>
 
-<section class="wrap detail-foot" aria-label="More posts">
+<section class="wrap wrap--post detail-foot" aria-label="More posts">
   {% include prev-next.html collection="posts" sort="date" noun="post" %}
   <a class="back-link" href="{{ '/blog/' | relative_url }}">← All posts</a>
 </section>
