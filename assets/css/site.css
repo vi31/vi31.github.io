@@ -903,6 +903,10 @@ textarea.input { resize: vertical; }
 .prose a { color: var(--lime-text); }
 .prose a:hover { color: var(--link-hover); }
 .prose img { display: block; max-width: 100%; border-radius: 12px; }
+/* post figures: diagrams are drawn for white, so keep a white ground in both themes */
+.prose figure img { width: 100%; height: auto; border: 1px solid var(--border); background: #FFFFFF; }
+.prose p strong { color: var(--text); font-weight: 600; }
+.medium-link { align-self: flex-start; padding: 6px 0; font-size: 14px; }
 .prose figure { margin: 0; }
 .prose figcaption { margin-top: 8px; font-size: 13px; color: var(--muted-2); }
 .prose .img-grid {

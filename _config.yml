@@ -19,6 +19,9 @@ form_endpoint: "https://formspree.io/f/[FORM_ID]"
 # No pre-made theme. The github-pages gem would otherwise apply "primer" by default.
 theme: null
 
+# No auto-generated excerpts: a post's `excerpt:` front matter is the only blurb.
+excerpt_separator: ""
+
 plugins:
   - jekyll-feed
   - jekyll-seo-tag

@@ -2,16 +2,27 @@
 layout: default
 ---
 {%- comment -%}
-  Single blog post. Front matter: title, date, topic, subtitle.
-  Read time is calculated from the word count (200 words a minute).
+  Single blog post. Front matter: title, date; optional: topic, subtitle, read_time,
+  medium_url (adds an "Originally published on Medium" link), canonical_url.
+  read_time defaults to a calculation from the word count (200 words a minute).
+  The purple full stop is added only when the title does not end in punctuation.
 {%- endcomment -%}
-{%- assign read_min = content | strip_html | number_of_words | divided_by: 200 | plus: 1 -%}
+{%- assign read_min = page.read_time | default: nil -%}
+{%- unless read_min -%}{%- assign read_min = content | strip_html | number_of_words | divided_by: 200 | plus: 1 -%}{%- endunless -%}
+{%- assign title_end = page.title | strip | slice: -1, 1 -%}
+{%- assign title_has_punct = false -%}
+{%- if title_end == '?' or title_end == '!' or title_end == '.' or title_end == ':' -%}{%- assign title_has_punct = true -%}{%- endif -%}
 <div class="doodle detail-banner" style="{% include doodle-style.html name='blog' %}">
   <section class="wrap detail-head detail-head--post" aria-label="Post summary">
     <a class="back-link" href="{{ '/blog/' | relative_url }}">← All posts</a>
-    <span class="detail-meta">{{ page.date | date: "%b %-d, %Y" }} · <span class="topic">{{ page.topic }}</span> · {{ read_min }} min read</span>
-    <h1>{{ page.title }}<span class="stop-purple">.</span></h1>
+    <span class="detail-meta">{{ page.date | date: "%b %-d, %Y" }}{% if page.topic %} · <span class="topic">{{ page.topic }}</span>{% endif %} · {{ read_min }} min read</span>
+    <h1>{{ page.title }}{% unless title_has_punct %}<span class="stop-purple">.</span>{% endunless %}</h1>
+    {%- if page.subtitle %}
     <p class="detail-summary">{{ page.subtitle }}</p>
+    {%- endif %}
+    {%- if page.medium_url %}
+    <a class="medium-link" href="{{ page.medium_url }}">Originally published on Medium ↗</a>
+    {%- endif %}
   </section>
 </div>
 
